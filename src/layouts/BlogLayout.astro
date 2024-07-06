@@ -24,13 +24,13 @@ function dateTimetoLocalDateString(date: Date) {
                     // 記事の数だけ表示
                     articles.flatMap((article: Article) => (
                       <article data-pagefind-ignore="all">
-                        <a href={`/articles/${article.slug}/`}>
-                          <img
-                            src={article.thumbnail.url}
-                            alt={`img_${article.title}/`}
-                            class="m-1"
-                          />
-                        </a>
+                          <a href={`/articles/${article.slug}/`}>
+                            <img
+                              src={article.thumbnail.url}
+                              alt={`img_${article.title}/`}
+                              class="m-1 aspect-[5/3] object-cover w-full"
+                            />
+                          </a>
                         <div class="flex flex-wrap">
                         <p class="created-at">{dateTimetoLocalDateString(article.createdAt)}</p>
                         <p class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</p>
