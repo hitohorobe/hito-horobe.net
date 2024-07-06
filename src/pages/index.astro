@@ -4,7 +4,7 @@ import { getArticles } from "../libs/microcms";
 import BlogLayout from "../layouts/BlogLayout.astro";
 import { DOMAIN } from "../const"
 const pageTitle = "hito-horobe.net";
-const apiResponse = await getArticles({ fields: ["id", "title", "slug", "thumbnail", "lead_text", "tags", "category", "createdAt", "updatedAt"] });
+const apiResponse = await getArticles({ fields: ["id", "title", "slug", "thumbnail", "lead_text", "tags", "category", "publishedAt", "updatedAt"] });
 const articles = apiResponse.contents;
 ---
 <BlogLayout 
