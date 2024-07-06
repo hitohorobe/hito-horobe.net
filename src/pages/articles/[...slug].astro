@@ -46,14 +46,17 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
               ))
             }
             </ul>
-          <img
+          <div class="max-h-[350px] overflow-hidden">
+            <img
                 src={article.thumbnail.url}
                 alt={`img_${article.title}/`}
-            />
+              />
+          </div>
         </div>
         <p class="py-5">{article.lead_text}</p>
           <div class="
             [&_h2]:text-xl [&_h2]:font-medium [&_h2]:my-4
+            [&_h3]:text-lg [&_h3]:font-medium [&_h3]:my-3
             [&_blockquote]:border-l-4 
             [&_blockquote]:p-3
             [&_blockquote]:mx-9
@@ -62,6 +65,8 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
             [&_a]:underline
             [&_ul]:pl-6
             [&_li]:list-disc
+            [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center
+            
           " set:html={article.main_text}>
           </div>
           <Related articles={relatedArticles.contents} />
