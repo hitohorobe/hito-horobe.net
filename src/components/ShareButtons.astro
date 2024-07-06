@@ -1,0 +1,44 @@
+---
+const { slug, title } = Astro.props
+import { DOMAIN } from "../const" 
+---
+
+<h2>シェアする</h2>
+<div class="share-buttons">
+    <a href=`https://twitter.com/share?text=${title}&url=https://${DOMAIN}/articles/${slug}`><li class="twitter">Twitter</li></a>
+    <a href=`https://b.hatena.ne.jp/entry/s/${DOMAIN}/articles/${slug}`><li class="hatebu">はてブ</li></a>
+    <a href=`https://www.facebook.com/sharer/sharer.php?u=https://${DOMAIN}/articles/${slug}`><li class="facebook">Facebook</li></a>
+    <a href=`https://social-plugins.line.me/lineit/share?url=https://${DOMAIN}/articles/${slug}`><li class="line">LINE</li></a>
+</div>
+
+<style>
+h2 {
+  font-size: 1.25rem;
+  font-weight: medium;
+  margin: 1rem 0;
+}
+
+.share-buttons {
+    display: grid;
+    color: #ffffff;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+.share-buttons li {
+    padding: 1rem;
+    text-align: center;
+    list-style: none;
+}
+.twitter {
+    background-color: #1da1f2
+}
+.hatebu {
+    background-color: #0087b7
+}
+.facebook {
+    background-color: #3b5998
+}
+.line {
+    background-color: #00b900
+}
+</style>

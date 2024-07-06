@@ -1,0 +1,84 @@
+---
+// こちらを参考にしました
+// https://haniwaman.com/parts/post-7171/
+---
+<input id="hamburger-checkbox" class="hamburger-hidden" type="checkbox">
+<label id="hamburger-icon" for="hamburger-checkbox"><span></span></label>
+
+<style>
+.hamburger-hidden {
+  display: none;
+}
+
+#hamburger-icon {
+  cursor: pointer;
+  display: inline-block;
+  height: 50px;
+  position: relative;
+  width: 50px;
+}
+
+#hamburger-icon span {
+  background:  #333;
+  border-radius: 4px;
+  display: block;
+  height: 16%;
+  left: 50%;
+  margin: -8% 0 0 -42%;
+  position: absolute;
+  top: 50%;
+  transition: all 0.3s ease-in-out;
+  width: 84%;
+}
+
+#hamburger-icon span::before,
+#hamburger-icon span::after {
+  -webkit-transform: rotate(0);
+  background: #333;
+  border-radius: 4px;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 50%;
+  margin: -8% 0 0 -50%;
+  position: absolute;
+  top: 50%;
+  transform: rotate(0);
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+#hamburger-icon span::before {
+  margin-top: -38%;
+}
+
+#hamburger-icon span::after {
+  margin-top: 19%;
+}
+
+#hamburger-checkbox:checked ~ #hamburger-icon span {
+  background: rgba(51, 51, 51, 0);
+}
+
+#hamburger-checkbox:checked ~ #hamburger-icon span::before,
+#hamburger-checkbox:checked ~ #hamburger-icon span::after {
+  content: "";
+  display: block;
+  height: 100%;
+  left: 50%;
+  margin: -8% 0 0 -42%;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+#hamburger-checkbox:checked ~ #hamburger-icon span::before {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#hamburger-checkbox:checked ~ #hamburger-icon span::after {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>

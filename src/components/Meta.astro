@@ -1,0 +1,12 @@
+---
+// OGP情報を設定するコンポーネント
+const { pageTitle, description, image, url } = Astro.props;
+---
+
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:url" content={url} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="hito-horobe.net" />
+

@@ -1,0 +1,125 @@
+---
+import { getArticles, getTags, getCategories } from "../libs/microcms";
+import { DOMAIN } from "../const";
+import Searchbar from "./Searchbar.astro";
+const tagApiResponse = await getTags( {limit: 30} );
+const tags = tagApiResponse.contents;
+const categoryApiResponse = await getCategories();
+const categories = categoryApiResponse.contents;
+const articleApiResponse = await getArticles({ limit: 5, fields: ["title", "slug"] });
+const articles = articleApiResponse.contents;
+---
+
+<aside class="sidebar" data-pagefind-ignore>
+    <hr>
+    <h3>検索</h3>
+    <Searchbar />
+    <hr>
+    <h3>最新記事</h3>
+    <ul class="article_list">
+        {
+            articles.map((article) => (
+                <li class="article">
+                    <a href={`/articles/${article.slug}/`}>{article.title}</a>
+                </li>
+            ))
+        }
+    </ul>
+    <hr>
+    <h3>カテゴリ</h3>
+    <ul class="category_list">
+        {
+            categories.map((category) => (
+                <li class="category">
+                    <a href={`/category/${category.name}/1`}>{category.name}</a>
+                </li>
+            ))
+        }
+    </ul>
+    <hr>
+    <h3>タグ</h3>
+    <ul class="tag_list">
+        {
+            tags.map((tag) => (
+                <li class="tag">
+                    <a href={`/tag/${tag.name}/1`}>{tag.name}</a>
+                </li>
+            ))
+        }
+    </ul>
+    <hr>
+    <h3>リンク</h3>
+    <div class="icon_list">
+        <a href=`/rss.xml`><img src="/rss.png"></a>
+        <a href=`https://twitter.com/hito_horobe2`><img src="/twitter.png"></a>
+        <a href=`https://github.com/hitohorobe`><img src="/github.svg"></a>
+    </div>
+    </aside>
+
+<style>
+    .sidebar {
+        width: 100%;
+        position: sticky;
+        top: 1rem;
+    }
+    .sidebar h3 {
+        font-size: 1rem;
+        text-align: center;
+        font-weight: bold;
+        padding: 0.5rem;
+    }
+    .sidebar .article_list {
+        margin: 0.5rem;
+    }
+    .sidebar .article_list li {
+        margin: 0.5rem;
+        text-decoration: underline;
+    }
+
+    .sidebar .category_list {
+        margin: 0.5rem;
+    }
+
+    .sidebar .category_list li{
+        list-style: none;
+        background-image: url("/category.svg");
+        background-size: 1.2rem;
+        background-repeat: no-repeat;
+        padding-left: 1.5rem;
+        margin: 0.5rem;
+    }
+
+    .sidebar .tag_list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0.5rem
+    }
+
+    .sidebar .tag_list li{
+        background-color: #ddf4ff;
+        margin: 0.2rem 0.25rem 0 0;
+        padding: 0.25rem 0.5rem;
+        list-style: none;
+        border-radius: 1rem;
+        font-weight: bold;
+        font-size: 0.8rem;
+        color: #0969da;
+    }
+    .sidebar .tag_list li:hover {
+        background-color: #0969da;
+        color: #ffffff;
+    }
+    .sidebar .icon_list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0.5rem;
+        list-style: none;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .sidebar .icon_list img {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 0.5rem;
+    }
+</style>

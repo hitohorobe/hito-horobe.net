@@ -1,0 +1,35 @@
+---
+import type { Article } from "../libs/microcms";
+const { articles } = Astro.props
+---
+<div class="related">
+    <h2>関連記事</h2>
+    <ul>
+        {
+            articles.map((article: Article) => (
+                <li>
+                    <a href={`/articles/${article.slug}/`}>{article.title}</a>
+                </li>
+            ))
+        }
+    </ul>
+</div>
+
+<style>
+    .related {
+        margin: 1rem 0rem;
+    }
+    .related h2 {
+        font-size: 1.25rem;
+        font-weight: medium;
+    }
+    .related ul {
+        list-style: none;
+    }
+    .related li {
+        margin: 0.25rem;
+    }
+    .related a {
+        text-decoration: underline;
+    }
+</style>

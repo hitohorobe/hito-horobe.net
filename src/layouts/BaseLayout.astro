@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+import Meta from '../components/Meta.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Navigation from '../components/Navigation.astro';
+const { pageTitle, description, image, url } = Astro.props
+---
+
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href='/favicon.ico'/>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<Meta pageTitle={pageTitle} description={description} image={image} url={url} />
+		<title>{pageTitle}</title>
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+	</body>
+</html>

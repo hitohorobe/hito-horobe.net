@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from "astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import Pagination from "../../components/Pagination.astro"; 
+import { getArticles } from '../../libs/microcms';
+import type { GetStaticPathsOptions } from 'astro';
+import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../const";
+const pageTitle = "hito-horobe.net";
+
+export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
+    const articlesApiResponse = await getArticles({ limit: QUERY_MAX_ENTRY_COUNT });
+    const articles = articlesApiResponse.contents;
+
+    return paginate(articles, {
+        pageSize: 10
+    });
+}
+const { page } = Astro.props
+const paginatedArticles = page.data
+---
+<BlogLayout 
+  pageTitle=`${page.currentPage}ページ目 | ${SITE_NAME}`
+  articles={paginatedArticles}
+  description=`${SITE_NAME}の過去記事一覧です`
+  image="/ogp.png"
+  url=`https://${DOMAIN}/archives/${page.currentPage}`
+>
+    <Pagination page={page} />
+</BlogLayout>

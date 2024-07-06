@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths } from "astro";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import Pagination from "../../../components/Pagination.astro";
+import { getArticles, getTags } from "../../../libs/microcms";
+import type { GetStaticPathsOptions } from "astro";
+import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../../const"
+
+export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
+    const tagsApiResponse = await getTags({ limit: QUERY_MAX_ENTRY_COUNT });
+    const tags = tagsApiResponse.contents;
+
+    const articlesApiResponse = await getArticles({ limit: QUERY_MAX_ENTRY_COUNT });
+    const articles = articlesApiResponse.contents;
+
+    return tags.flatMap((tag) => {
+        const tagArticles = articles.filter((article) => 
+            article.tags.map((tag) => tag.id).includes(tag.id)
+        );
+        return paginate(tagArticles, {
+            params: { tagName: tag.name },
+            pageSize: 10
+        })
+    });
+
+}
+const { page } = Astro.props
+const { tagName } = Astro.params
+const tagArticles = page.data
+const tags = tagArticles.map((article) => article.tags).flat()
+const tagOfThisPage = tags.find((tag) => tag.name === tagName)
+---
+<BlogLayout 
+  pageTitle=`${tagName} | ${SITE_NAME}`
+  articles={tagArticles}
+  description=`${SITE_NAME}の${tagName}タグの記事一覧です`
+  image="/ogp.png"
+  url={`https://${DOMAIN}/tag/${tagName}/${page.currentPage}`}
+>
+    <Pagination page={page} />
+</BlogLayout>

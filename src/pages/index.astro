@@ -1,0 +1,22 @@
+---
+// 記事一覧を取得
+import { getArticles } from "../libs/microcms";
+import BlogLayout from "../layouts/BlogLayout.astro";
+import { DOMAIN } from "../const"
+const pageTitle = "hito-horobe.net";
+const apiResponse = await getArticles({ fields: ["id", "title", "slug", "thumbnail", "lead_text", "tags", "category", "createdAt", "updatedAt"] });
+const articles = apiResponse.contents;
+---
+<BlogLayout 
+  pageTitle={pageTitle}
+  articles={articles}
+  description="@hito_horobeのブログ"
+  image="/ogp.png"
+  url=`https://${DOMAIN}`
+>
+<!-- archives/1 へのリンクを中央揃えで配置 -->
+<div class="text-center">
+    <a href="/archives/1" class="text-xl underline font-medium">過去記事一覧へ</a>
+</div>
+</BaseLayout>
+

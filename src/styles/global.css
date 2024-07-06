@@ -1,0 +1,59 @@
+html.dark {
+    background-color: #0d1117;
+    color: #ffffff;
+}
+
+html.dark header {
+    background-color: #393939;
+    color: #ffffff;
+
+}
+
+html.dark .icon_list img {
+    filter: invert(100%);
+}
+
+html.dark #hamburger-icon  {
+    filter: invert(100%);
+}
+
+html.dark .created-at {
+    background-image: url("/created.svg");
+    color: #000000;
+    filter: invert(100%);
+}
+
+html.dark .updated-at {
+    background-image: url("/update.svg");
+    color: #000000;
+    filter: invert(100%);
+}
+
+html.dark .category {
+    background-image: url("/category.svg");
+    color: #000000;
+    filter: invert(100%);
+}
+
+html.dark .tag_list li, html.dark .tag li{
+    background-color: #388dfb1a !important; 
+
+}
+
+html.dark .tag_list li:hover, html.dark .tag li:hover{
+    background-color: #0969da !important;
+
+}
+
+
+html.dark blockquote {
+    background-color: #393939;
+    color: #ffffff;
+}
+
+body {
+    font-family: "Roboto", "Helvetica Neue", "sans-serif";
+    font-size: 14px;
+    font-weight: 400;
+}
+ 
