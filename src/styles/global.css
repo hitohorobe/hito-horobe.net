@@ -17,8 +17,8 @@ html.dark #hamburger-icon  {
     filter: invert(100%);
 }
 
-html.dark .created-at {
-    background-image: url("/created.svg");
+html.dark .published-at {
+    background-image: url("/published.svg");
     color: #000000;
     filter: invert(100%);
 }
