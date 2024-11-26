@@ -5,6 +5,7 @@ import Pagination from "../../components/Pagination.astro";
 import { getArticles } from '../../libs/microcms';
 import type { GetStaticPathsOptions } from 'astro';
 import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../const";
+import ogpImage from "@assets/ogp-index.jpg"
 const pageTitle = "hito-horobe.net";
 
 export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
@@ -22,7 +23,7 @@ const paginatedArticles = page.data
   pageTitle=`${page.currentPage}ページ目 | ${SITE_NAME}`
   articles={paginatedArticles}
   description=`${SITE_NAME}の過去記事一覧です`
-  image="/ogp.png"
+  image=ogpImage.src
   url=`https://${DOMAIN}/archives/${page.currentPage}`
 >
     <Pagination page={page} />

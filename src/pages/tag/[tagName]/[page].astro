@@ -5,6 +5,7 @@ import Pagination from "../../../components/Pagination.astro";
 import { getArticles, getTags } from "../../../libs/microcms";
 import type { GetStaticPathsOptions } from "astro";
 import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../../const"
+import ogpImage from "@assets/ogp-index.jpg"
 
 export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
     const tagsApiResponse = await getTags({ limit: QUERY_MAX_ENTRY_COUNT });
@@ -34,7 +35,7 @@ const tagOfThisPage = tags.find((tag) => tag.name === tagName)
   pageTitle=`${tagName} | ${SITE_NAME}`
   articles={tagArticles}
   description=`${SITE_NAME}の${tagName}タグの記事一覧です`
-  image="/ogp.png"
+  image=ogpImage.src
   url={`https://${DOMAIN}/tag/${tagName}/${page.currentPage}`}
 >
     <Pagination page={page} />

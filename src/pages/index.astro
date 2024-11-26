@@ -3,6 +3,7 @@
 import { getArticles } from "../libs/microcms";
 import BlogLayout from "../layouts/BlogLayout.astro";
 import { DOMAIN } from "../const"
+import ogpImage from "@assets/ogp-index.jpg"
 const pageTitle = "hito-horobe.net";
 const apiResponse = await getArticles({ fields: ["id", "title", "slug", "thumbnail", "lead_text", "tags", "category", "publishedAt", "updatedAt"] });
 const articles = apiResponse.contents;
@@ -11,7 +12,7 @@ const articles = apiResponse.contents;
   pageTitle={pageTitle}
   articles={articles}
   description="@hito_horobeのブログ"
-  image="/ogp.png"
+  image=ogpImage.src
   url=`https://${DOMAIN}`
 >
 <!-- archives/1 へのリンクを中央揃えで配置 -->
