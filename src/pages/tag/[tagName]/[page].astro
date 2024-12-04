@@ -34,7 +34,7 @@ const tagOfThisPage = tags.find((tag) => tag.name === tagName)
   pageTitle=`${tagName} | ${SITE_NAME}`
   articles={tagArticles}
   description=`${SITE_NAME}の${tagName}タグの記事一覧です`
-  image="/ogp.png"
+  image="https://hito-horobe.net/ogp-index.jpg"
   url={`https://${DOMAIN}/tag/${tagName}/${page.currentPage}`}
 >
     <Pagination page={page} />

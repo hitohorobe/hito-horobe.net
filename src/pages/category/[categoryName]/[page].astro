@@ -37,7 +37,7 @@ const categoryOfThisPage = categories.find((category) => category.name === categ
   pageTitle=`${categoryOfThisPage?.name} | ${SITE_NAME}`
   articles={categoryArticles}
   description=`${SITE_NAME}の${categoryOfThisPage?.name}カテゴリの記事一覧です`
-  image={"/ogp.png"}
+  image={"https://hito-horobe.net/ogp-index.jpg"}
   url={`https://${DOMAIN}/category/${categoryName}/${page.currentPage}`}
 >
     <Pagination page={page} />
