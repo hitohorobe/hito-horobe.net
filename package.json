@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/tailwind": "^5.1.2",
-    "astro": "^4.16.16",
+    "astro": "^5.0.3",
     "astro-pagefind": "^1.7.0",
     "microcms-js-sdk": "^3.1.2",
     "tailwindcss": "^3.4.15",
