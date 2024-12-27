@@ -70,7 +70,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
           <Related articles={relatedArticles.contents} />
           <Sharebuttons 
             slug={article.slug}
-            title=`${article.title} %7C ${SITE_NAME}`
+            title={encodeURIComponent(`${article.title} | ${SITE_NAME}`)}
           />
         </div>
       </article>
