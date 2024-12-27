@@ -2,86 +2,101 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Related from "../../components/Related.astro";
-import Sharebuttons from '../../components/ShareButtons.astro';
-import { getArticles, getArticleDetail } from "../../libs/microcms.ts"
-import { DOMAIN, SITE_NAME } from "../../const"
+import Sharebuttons from "../../components/ShareButtons.astro";
+import { getArticles, getArticleDetail } from "../../libs/microcms.ts";
+import { DOMAIN, SITE_NAME } from "../../const";
 import { dateTimetoLocalDateString } from "../../libs/date";
 
 export async function getStaticPaths() {
-    const apiResponse = await getArticles({ fields: ["id", "slug"] });
-    const articles = apiResponse.contents;
-    return articles.map((article) => ({
-        params: { slug: article.slug },
-        props: { id: article.id },
-
-    }));
+  const apiResponse = await getArticles({ fields: ["id", "slug"] });
+  const articles = apiResponse.contents;
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { id: article.id },
+  }));
 }
 const { slug } = Astro.params;
 const { id } = Astro.props;
-const article = await getArticleDetail(id as string)
-const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] });
+const article = await getArticleDetail(id as string);
+const relatedArticles = await getArticles({
+  limit: 4,
+  fields: ["title", "slug"],
+});
 ---
+
 <BaseLayout
   pageTitle={`${article.title} | ${SITE_NAME}`}
   description={article.lead_text}
   image={article.thumbnail.url}
   url={`https://${DOMAIN}/articles/${slug}`}
 >
-<container class="max-w-[1100px] mx-auto flex flex-wrap m-3">
-  <div class="flex-1 mr-4">
-  <article class="p-3" data-pagefind-body>
+  <container class="max-w-[1100px] mx-auto flex flex-wrap m-3">
+    <div class="flex-1 mr-4">
+      <article class="p-3" data-pagefind-body>
         <div>
-          <h2 class="text-xl font-semibold p-1 m-1 text-center">{article.title}</h2>
+          <h2 class="text-xl font-semibold p-1 m-1 text-center">
+            {article.title}
+          </h2>
           <ul class="date">
-            <li class="published-at">{dateTimetoLocalDateString(article.publishedAt)}</li>
-            <li class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</li>
-            <li class="category"><a href={`/category/${article.category.name}/1`}>{article.category?.name}</a></li>
+            <li class="published-at">
+              {dateTimetoLocalDateString(article.publishedAt)}
+            </li>
+            <li class="updated-at">
+              {dateTimetoLocalDateString(article.updatedAt)}
+            </li>
+            <li class="category">
+              <a href={`/category/${article.category.name}/1`}
+                >{article.category?.name}</a>
+            </li>
           </ul>
           <ul class="tag">
             {
               article.tags.map((tag) => (
-                <li><a href={`/tag/${tag.name}/1`}>{tag.name}</a></li>
+                <li>
+                  <a href={`/tag/${tag.name}/1`}>{tag.name}</a>
+                </li>
               ))
             }
-            </ul>
-          <div class="max-h-[350px] overflow-hidden">
-            <img
-                src={article.thumbnail.url}
-                alt={`img_${article.title}/`}
-              />
+          </ul>
+          <div class="max-h-[350px] overflow-hidden flex justify-center items-center">
+            <img src={article.thumbnail.url} alt={`img_${article.title}/`} class="max-w-[600px]"/>
           </div>
         </div>
         <p class="py-5">{article.lead_text}</p>
-          <div class="
-            [&_h2]:text-xl [&_h2]:font-medium [&_h2]:my-4
+        <div
+          class="[&_h2]:text-xl [&_h2]:font-bold [&_h2]:my-6
             [&_h3]:text-lg [&_h3]:font-medium [&_h3]:my-3
-            [&_blockquote]:border-l-4 
+            [&_blockquote]:border-l-4
             [&_blockquote]:p-3
             [&_blockquote]:mx-9
             [&_blockquote]:border-blue-500 [&_blockquote]:bg-[#f5f5f5]
-            [&_p]:m-3 [&_p]:text-sm
+            [&_p]:m-3 [&_p]:text-base
             [&_a]:underline
             [&_ul]:pl-6
             [&_li]:list-disc
-            [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center
-            
-          " set:html={article.main_text}>
-          </div>
-          <Related articles={relatedArticles.contents} />
-          <Sharebuttons 
-            slug={article.slug}
-            title=`${article.title} %7C ${SITE_NAME}`
-          />
-        </div>
+            [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center"
+          set:html={article.main_text}
+        />
+        <Related articles={relatedArticles.contents} />
+        <Sharebuttons
+          slug={article.slug}
+          title=`${article.title} %7C ${SITE_NAME}`
+        />
       </article>
     </div>
-    <div id="sidebar" class="hidden md:block md:w-1/4 lg:w-1/3 max-w-[280px]">
-      <Navigation />
-    </div>
+  </container>
+  <div id="sidebar" class="hidden md:block md:w-1/4 lg:w-1/3 max-w-[280px]">
+    <Navigation />
   </div>
 </BaseLayout>
 
 <style>
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 1.5rem 0rem;
+  }
+
   .date {
     display: flex;
     flex-wrap: wrap;
@@ -138,14 +153,15 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
     color: #ffffff;
   }
 
-
-
   .main_text {
-    font: 400 14px/20px 'Helvetica Neue', 'Arial', 'sans-serif;'
+    font:
+      400 14px/20px "Helvetica Neue",
+      "Arial",
+      "sans-serif;";
   }
   .main_text h2 {
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 1rem 0;
+    margin: 2rem 0;
   }
 </style>
