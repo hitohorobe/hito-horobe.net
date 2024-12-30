@@ -31,9 +31,9 @@ const { pageTitle, articles, description, image, url } = Astro.props
                         <p class="published-at">{dateTimetoLocalDateString(article.publishedAt)}</p>
                         <p class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</p>
                         </div>
-                          <h2 class="text-xl font-semibold p-1 m-1">
+                          <h1 class="text-xl font-semibold p-1 m-1">
                             <a href={`/articles/${article.slug}/`}>{article.title}</a>
-                          </h2>
+                          </h1>
                         <p class="p-1 m-1">{article.lead_text}</p>
                         <p class="category">
                           <a href={`/category/${article.category.name}/1`}>{article.category.name}</a>
