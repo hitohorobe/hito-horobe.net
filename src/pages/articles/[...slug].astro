@@ -31,7 +31,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
   <div class="flex-1 mr-4">
   <article class="p-3" data-pagefind-body>
         <div>
-          <h2 class="text-xl font-semibold p-1 m-1 text-center">{article.title}</h2>
+          <h1>{article.title}</h1>
           <ul class="date">
             <li class="published-at">{dateTimetoLocalDateString(article.publishedAt)}</li>
             <li class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</li>
@@ -54,7 +54,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
         <p class="py-5">{article.lead_text}</p>
           <div class="
             [&_h2]:text-xl [&_h2]:font-bold [&_h2]:my-6
-            [&_h3]:text-lg [&_h3]:font-medium [&_h3]:my-3
+            [&_h3]:text-lg [&_h3]:font-bold [&_h3]:my-3
             [&_blockquote]:border-l-4 
             [&_blockquote]:p-3
             [&_blockquote]:mx-9
@@ -129,7 +129,6 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
     list-style: none;
     border-radius: 1rem;
     font-weight: bold;
-    font-size: 0.8rem;
     color: #0969da;
   }
 
@@ -138,7 +137,9 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
     color: #ffffff;
   }
 
-
+  h1 {
+    text-align: center; 
+  }
 
   .main_text {
     font: 400 14px/20px 'Helvetica Neue', 'Arial', 'sans-serif;'
@@ -147,5 +148,11 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
     font-size: 1.5rem;
     font-weight: bold;
     margin: 2rem 0;
+  }
+
+  .main_text h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
   }
 </style>
