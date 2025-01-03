@@ -3,9 +3,9 @@ const { page } = Astro.props
 ---
 <div class="pagination">
     <ul>
-        { page.url.prev ? <li class="prev">＜<a href={page.url.prev}></a></li>: null}
+        { page.url.prev ? <li class="prev"><a href={page.url.prev}>前のページ</a></li>: null}
          <li class="currentPage">{page.currentPage}</li>
-        { page.url.next ? <li class="next"><a href={page.url.next}>＞</a></li>: null}
+        { page.url.next ? <li class="next"><a href={page.url.next}>次のページ</a></li>: null}
     </ul>
 </div>
 
