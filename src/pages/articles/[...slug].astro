@@ -3,18 +3,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Related from "../../components/Related.astro";
 import Sharebuttons from '../../components/ShareButtons.astro';
-import { getArticles, getArticleDetail } from "../../libs/microcms.ts"
+import type { ArticleResponse } from "../../libs/microcms";
+import { getArticles, getAllArticles, getArticleDetail } from "../../libs/microcms.ts"
 import { DOMAIN, SITE_NAME } from "../../const"
 import { dateTimetoLocalDateString } from "../../libs/date";
 
 export async function getStaticPaths() {
-    const apiResponse = await getArticles({ fields: ["id", "slug"] });
-    const articles = apiResponse.contents;
-    return articles.map((article) => ({
-        params: { slug: article.slug },
-        props: { id: article.id },
-
-    }));
+    const apiResponse = await getAllArticles({ fields: ["id", "slug"] });
+    const articles = apiResponse;
+    return articles
+        .filter((article) => 'slug' in article)
+        .map((article) => ({
+            params: { slug: article.slug },
+            props: { id: article.id },
+        }));
 }
 const { slug } = Astro.params;
 const { id } = Astro.props;
@@ -60,7 +62,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
             [&_blockquote]:mx-9
             [&_blockquote]:border-blue-500 [&_blockquote]:bg-[#f5f5f5]
             [&_p]:m-3 [&_p]:text-base
-            [&_a]:underline [&_a]:text-blue-600
+            [&_a]:underline
             [&_ul]:pl-6
             [&_li]:list-disc
             [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center
