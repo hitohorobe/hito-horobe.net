@@ -60,13 +60,15 @@ const articles = articleApiResponse.contents;
     .sidebar {
         width: 100%;
         position: sticky;
+        overflow-y: scroll;
         top: 1rem;
+        max-height: 90vh;
     }
     .sidebar h3 {
         font-size: 1rem;
         text-align: center;
         font-weight: bold;
-        padding: 0.5rem;
+        margin: 0.75rem;
     }
     .sidebar .article_list {
         margin: 0.5rem;
