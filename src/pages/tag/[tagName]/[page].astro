@@ -1,5 +1,4 @@
 ---
-import type { GetStaticPaths } from "astro";
 import BlogLayout from "../../../layouts/BlogLayout.astro";
 import Pagination from "../../../components/Pagination.astro";
 import { getArticles, getTags } from "../../../libs/microcms";
@@ -27,8 +26,7 @@ export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
 const { page } = Astro.props
 const { tagName } = Astro.params
 const tagArticles = page.data
-const tags = tagArticles.map((article) => article.tags).flat()
-const tagOfThisPage = tags.find((tag) => tag.name === tagName)
+
 ---
 <BlogLayout 
   pageTitle=`${tagName} | ${SITE_NAME}`
