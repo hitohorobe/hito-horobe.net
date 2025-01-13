@@ -9,5 +9,8 @@ export default defineConfig({
   build: {
     format: "file"
   },
-  integrations: [pagefind(), tailwind()]
+  integrations: [pagefind(), tailwind()],
+  image: {
+    domains: ["images.microcms-assets.io"]
+  }
 });

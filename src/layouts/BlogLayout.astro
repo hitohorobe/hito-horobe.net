@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -21,9 +22,11 @@ const { pageTitle, articles, description, image, url } = Astro.props
                     articles.flatMap((article: Article) => (
                       <article data-pagefind-ignore="all">
                           <a href={`/articles/${article.slug}/`}>
-                            <img
-                              src={article.thumbnail.url}
+                            <Image
+                              src={`${article.thumbnail.url}`}
                               alt={`img_${article.title}/`}
+                              width={800}
+                              height={450}
                               class="m-1 aspect-[5/3] object-cover w-full"
                             />
                           </a>
