@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import * as jsdom from 'jsdom';
+const { content } = Astro.props;
+
+// stringで渡されたhtmlをjsdomでDOMに変換し、配列にして返す
+const dom = new jsdom.JSDOM(content);
+const body = dom.window.document.body;
+const children = Array.from(body.children);
+
+---
+
+<div class="
+    [&_h2]:text-xl [&_h2]:font-bold [&_h2]:my-6
+    [&_h3]:text-lg [&_h3]:font-bold [&_h3]:my-3
+    [&_blockquote]:border-l-4 
+    [&_blockquote]:p-3
+    [&_blockquote]:mx-9
+    [&_blockquote]:border-blue-500 [&_blockquote]:bg-[#f5f5f5]
+    [&_p]:m-3 [&_p]:text-base
+    [&_a]:underline [&_a]:text-blue-600
+    [&_ul]:pl-6
+    [&_li]:list-disc
+    [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center"
+>
+{
+    // domの数だけループしてastroのコンポーネントに変換する
+    // figure要素の時は、その中からimg要素を取得してImageコンポーネントに変換する
+    // それ以外の場合は、set:htmlでastroのhtmlコンポーネントに変換する
+    children.map((child) => {
+        if (child.tagName === 'FIGURE') {
+            if (child.children.length === 0) {
+                return;
+            }
+            // figure 以下に含まれるimgのパターンは
+            // <a href="..."><img src="..."></a>または<img src="...">
+            // figcaptionのパターンは<figcaption>...</figcaption>
+            const img = child.querySelector('img');
+            const a = child.querySelector('a');
+            const figcaption = child.querySelector('figcaption');
+
+            // a, img, figcaptionすべてが存在する場合
+            if (a && img && figcaption) {
+                return (
+                    <figure>
+                        <a href={a.href} target={`${a.target}`}>
+                            <Image
+                                src={`${img.src}`}
+                                alt={`${img.alt}`}
+                                width={`${img.width}`}
+                                height={`${img.height}`}
+                                class={`${img.className}`}}
+                            />
+                        </a>
+                        <figcaption>{figcaption.textContent}</figcaption>
+                    </figure>
+                );
+                }
+            // img, figcaptionのみが存在する場合
+            if (img && figcaption) {
+                return (
+                    <figure>
+                        <Image
+                            src={`${img.src}`}
+                            alt={`${img.alt}`}
+                            width={`${img.width}`}
+                            height={`${img.height}`}
+                            class={`${img.className}`}
+                        />
+                        <figcaption>{figcaption.textContent}</figcaption>
+                    </figure>
+                );
+            }
+            // imgのみが存在する場合
+            if (img) {
+                return (
+                    <figure>
+                        <Image
+                            src={`${img.src}`}
+                            alt={`${img.alt}`}
+                            width={`${img.width}`}
+                            height={`${img.height}`}
+                            class={`${img.className}`}
+                        />
+                    </figure>
+                );
+            }
+
+        } else {
+            return (
+                <Fragment set:html={child.outerHTML} />
+            );
+        }
+})
+}
+</div>

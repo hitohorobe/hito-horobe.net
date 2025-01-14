@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Related from "../../components/Related.astro";
 import Sharebuttons from '../../components/ShareButtons.astro';
+import BlogContent from "../../components/BlogContent.astro";
 import { getArticles, getAllArticles, getArticleDetail } from "../../libs/microcms.ts"
 import { DOMAIN, SITE_NAME } from "../../const"
 import { dateTimetoLocalDateString } from "../../libs/date";
@@ -57,20 +58,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
           </div>
         </div>
         <p class="py-5">{article.lead_text}</p>
-          <div class="
-            [&_h2]:text-xl [&_h2]:font-bold [&_h2]:my-6
-            [&_h3]:text-lg [&_h3]:font-bold [&_h3]:my-3
-            [&_blockquote]:border-l-4 
-            [&_blockquote]:p-3
-            [&_blockquote]:mx-9
-            [&_blockquote]:border-blue-500 [&_blockquote]:bg-[#f5f5f5]
-            [&_p]:m-3 [&_p]:text-base
-            [&_a]:underline [&_a]:text-blue-600
-            [&_ul]:pl-6
-            [&_li]:list-disc
-            [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center
-          "set:html={`${article.main_text}`}>
-          </div>
+          <BlogContent content={article.main_text} />
           <Related articles={relatedArticles.contents} />
           <Sharebuttons 
             slug={article.slug}
