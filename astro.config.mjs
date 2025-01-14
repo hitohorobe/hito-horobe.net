@@ -7,7 +7,8 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://hito-horobe.net",
   build: {
-    format: "file"
+    format: "file",
+    assets: "files",
   },
   integrations: [pagefind(), tailwind()],
   image: {
