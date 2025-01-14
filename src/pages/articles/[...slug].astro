@@ -1,9 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Related from "../../components/Related.astro";
 import Sharebuttons from '../../components/ShareButtons.astro';
-import type { ArticleResponse } from "../../libs/microcms";
 import { getArticles, getAllArticles, getArticleDetail } from "../../libs/microcms.ts"
 import { DOMAIN, SITE_NAME } from "../../const"
 import { dateTimetoLocalDateString } from "../../libs/date";
@@ -18,6 +18,7 @@ export async function getStaticPaths() {
             props: { id: article.id },
         }));
 }
+
 const { slug } = Astro.params;
 const { id } = Astro.props;
 const article = await getArticleDetail(id as string)
@@ -47,9 +48,11 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
             }
             </ul>
           <div class="max-h-[350px] overflow-hidden flex justify-center items-center">
-            <img
-                src={article.thumbnail.url}
+            <Image
+                src={`${article.thumbnail.url}`}
                 alt={`img_${article.title}/`}
+                width={800}
+                height={450}
               />
           </div>
         </div>
@@ -66,8 +69,7 @@ const relatedArticles = await getArticles({ limit: 4, fields: ["title", "slug"] 
             [&_ul]:pl-6
             [&_li]:list-disc
             [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center
-            
-          " set:html={article.main_text}>
+          "set:html={`${article.main_text}`}>
           </div>
           <Related articles={relatedArticles.contents} />
           <Sharebuttons 

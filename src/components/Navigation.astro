@@ -1,6 +1,5 @@
 ---
 import { getArticles, getTags, getCategories } from "../libs/microcms";
-import { DOMAIN } from "../const";
 import Searchbar from "./Searchbar.astro";
 const tagApiResponse = await getTags( {limit: 30} );
 const tags = tagApiResponse.contents;
