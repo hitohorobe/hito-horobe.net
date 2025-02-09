@@ -14,7 +14,7 @@
     "@astrojs/rss": "^4.0.11",
     "@astrojs/tailwind": "^5.1.4",
     "astro": "^5.2.3",
-    "astro-pagefind": "^1.7.0",
+    "astro-pagefind": "^1.8.0",
     "jsdom": "^26.0.0",
     "microcms-js-sdk": "^3.1.2",
     "tailwindcss": "^3.4.17",
