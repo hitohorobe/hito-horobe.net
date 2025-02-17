@@ -21,7 +21,7 @@ export async function GET(context) {
             // <description>フィールド
             description: article.lead_text,
             // <link>フィールド
-            link: `${context.site}articles/${article.id}`,
+            link: `${context.site}articles/${article.slug}`,
             // <pubDate>フィールド
             pubDate: article.publishedAt,
             // (任意) <category>フィールド
