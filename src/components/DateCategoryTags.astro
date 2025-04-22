@@ -1,0 +1,78 @@
+---
+import { dateTimetoLocalDateString } from "../libs/date";
+import type { Tag } from "../libs/microcms";
+
+const { article } = Astro.props
+---
+
+<div class="">
+    <ul class="date">
+        <li class="published-at">{dateTimetoLocalDateString(article.publishedAt)}</li>
+        <li class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</li>
+        <li class="category"><a href={`/category/${article.category.name}/1`}>{article.category?.name}</a></li>
+      </ul>
+      <ul class="tag">
+        {
+          article.tags.map((tag: Tag) => (
+            <li><a href={`/tag/${tag.name}/1`}>{tag.name}</a></li>
+          ))
+        }
+        </ul>
+</div>
+
+<style>
+    .date {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0.5rem;
+    }
+  
+    .date .category {
+      list-style: none;
+      background-image: url("/category.svg");
+      background-size: 1.2rem;
+      background-repeat: no-repeat;
+      padding-left: 1.5rem;
+      margin: 0.25rem;
+    }
+  
+    .date .published-at {
+      list-style: none;
+      background-image: url("/published.svg");
+      background-size: 1.2rem;
+      background-repeat: no-repeat;
+      padding-left: 1.5rem;
+      margin: 0.25rem;
+    }
+  
+    .date .updated-at {
+      list-style: none;
+      background-image: url("/update.svg");
+      background-size: 1.2rem;
+      background-repeat: no-repeat;
+      padding-left: 1.5rem;
+      margin: 0.25rem;
+    }
+  
+    .tag {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0.5rem;
+    }
+  
+    .tag li {
+      background-color: #ddf4ff;
+      margin: 0.2rem 0.25rem 0 0;
+      padding: 0.25rem 0.5rem;
+      list-style: none;
+      border-radius: 1rem;
+      font-weight: bold;
+      color: #0969da;
+    }
+  
+    .tag li:hover {
+      background-color: #0969da;
+      color: #ffffff;
+    }
+</style>
