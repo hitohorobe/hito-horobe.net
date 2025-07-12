@@ -59,8 +59,14 @@ body {
 
 
 p {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
 }
+
+ul {
+    margin: 2rem 0;
+    padding-left: 2rem;
+}
+
 h1 {
     font-size: 1.75rem;
     font-weight: bold;
