@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import pagefind from "astro-pagefind";
-
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +9,10 @@ export default defineConfig({
     format: "file",
     assets: "files",
   },
-  integrations: [pagefind(), tailwind()],
+  integrations: [pagefind()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   image: {
     domains: ["images.microcms-assets.io"]
   }
