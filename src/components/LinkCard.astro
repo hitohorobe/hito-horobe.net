@@ -1,0 +1,40 @@
+---
+import { getLinkPreview } from "../libs/link-preview";
+
+const { url } = Astro.props;
+const preview = url ? await getLinkPreview(url) : null;
+---
+{
+  preview ? (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="link-card not-italic block my-6 border border-gray-300 rounded-lg overflow-hidden no-underline hover:bg-gray-50 transition-colors"
+    >
+      {preview.image && (
+        <div class="w-full h-48 sm:h-64 md:h-80 overflow-hidden flex items-center justify-center bg-white">
+          <img
+            src={preview.image}
+            alt=""
+            loading="lazy"
+            class="w-full h-full object-contain"
+          />
+        </div>
+      )}
+      <div class={`p-3 ${preview.image ? "border-t border-gray-200" : ""}`}>
+        <p class="!m-0 font-semibold text-gray-900 line-clamp-2">{preview.title}</p>
+        {preview.description && (
+          <p class="!mx-0 !mt-1 !mb-0 text-sm text-gray-500 line-clamp-2">{preview.description}</p>
+        )}
+        {preview.siteName && (
+          <p class="!mx-0 !mt-2 !mb-0 text-xs text-gray-400 truncate">{preview.siteName}</p>
+        )}
+      </div>
+    </a>
+  ) : (
+    <a href={url} target="_blank" rel="noopener noreferrer" class="link-card underline text-blue-600 break-all">
+      {url}
+    </a>
+  )
+}
