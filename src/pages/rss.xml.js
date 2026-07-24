@@ -1,10 +1,9 @@
 import rss from '@astrojs/rss';
-import { getArticles } from '../libs/microcms';
+import { getArticles } from '../libs/content';
 
 export async function GET(context) {
     // ブログ記事を取得
-    const articleApiResponse = await getArticles();
-    const articles = articleApiResponse.contents;
+    const articles = await getArticles();
     return rss({
         // 出力されるXMLの`<title>`フィールド
         title: 'hito-horobe.net',
@@ -19,13 +18,13 @@ export async function GET(context) {
             // <title>フィールド
             title: article.title,
             // <description>フィールド
-            description: article.lead_text,
+            description: article.leadText,
             // <link>フィールド
             link: `${context.site}articles/${article.slug}`,
             // <pubDate>フィールド
             pubDate: article.publishedAt,
-            // (任意) <category>フィールド
-            category: article.category,
+            // (任意) <category>フィールド (@astrojs/rssはcategories(配列)を受け取る)
+            categories: [article.category, ...article.tags],
             // (任意) <guid>フィールド
         })),
         // (任意) カスタムXMLを挿入

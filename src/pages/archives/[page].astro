@@ -1,13 +1,12 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import Pagination from "../../components/Pagination.astro"; 
-import { getArticles } from '../../libs/microcms';
+import { getArticles } from '../../libs/content';
 import type { GetStaticPathsOptions } from 'astro';
-import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../const";
+import { DOMAIN, SITE_NAME } from "../../const";
 
 export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
-    const articlesApiResponse = await getArticles({ limit: QUERY_MAX_ENTRY_COUNT });
-    const articles = articlesApiResponse.contents;
+    const articles = await getArticles();
 
     return paginate(articles, {
         pageSize: 10

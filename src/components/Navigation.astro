@@ -1,12 +1,9 @@
 ---
-import { getArticles, getTags, getCategories } from "../libs/microcms";
+import { getArticles, getTags, getCategories } from "../libs/content";
 import Searchbar from "./Searchbar.astro";
-const tagApiResponse = await getTags( {limit: 30} );
-const tags = tagApiResponse.contents;
-const categoryApiResponse = await getCategories();
-const categories = categoryApiResponse.contents;
-const articleApiResponse = await getArticles({ limit: 5, fields: ["title", "slug"] });
-const articles = articleApiResponse.contents;
+const tags = await getTags();
+const categories = await getCategories();
+const articles = (await getArticles()).slice(0, 5);
 ---
 
 <aside class="sidebar" data-pagefind-ignore>
@@ -30,7 +27,7 @@ const articles = articleApiResponse.contents;
         {
             categories.map((category) => (
                 <li class="category">
-                    <a href={`/category/${category.name}/1`}>{category.name}</a>
+                    <a href={`/category/${category}/1`}>{category}</a>
                 </li>
             ))
         }
@@ -41,7 +38,7 @@ const articles = articleApiResponse.contents;
         {
             tags.map((tag) => (
                 <li class="tag">
-                    <a href={`/tag/${tag.name}/1`}>{tag.name}</a>
+                    <a href={`/tag/${tag}/1`}>{tag}</a>
                 </li>
             ))
         }

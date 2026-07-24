@@ -1,5 +1,8 @@
 # build output
 dist/
+
+# synced articles content repo (scripts/sync-content.mjs)
+content/
 # generated types
 .astro/
 

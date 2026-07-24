@@ -1,11 +1,10 @@
 ---
 // 記事一覧を取得
-import { getArticles } from "../libs/microcms";
+import { getArticles } from "../libs/content";
 import BlogLayout from "../layouts/BlogLayout.astro";
 import { DOMAIN } from "../const"
 const pageTitle = "hito-horobe.net";
-const apiResponse = await getArticles({ fields: ["id", "title", "slug", "thumbnail", "lead_text", "tags", "category", "publishedAt", "updatedAt"] });
-const articles = apiResponse.contents;
+const articles = (await getArticles()).slice(0, 10);
 ---
 <BlogLayout 
   pageTitle={pageTitle}
