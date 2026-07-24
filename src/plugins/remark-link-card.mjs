@@ -21,10 +21,16 @@ export default function remarkLinkCard() {
         return;
       }
 
+      const title = link.title?.trim().toLowerCase();
+      // リンクのtitle属性で "plain" を指定すると、LinkCard化せず通常のテキストリンクのままにする。
+      if (title === "plain") {
+        return;
+      }
+
       const attributes = [{ type: "mdxJsxAttribute", name: "url", value: link.url }];
-      // リンクのtitle属性で "small" を指定すると小型カードになる(画像キャプションと同じ仕組み)。
+      // title属性で "small" を指定すると小型カードになる(画像キャプションと同じ仕組み)。
       // 未指定/それ以外の値の場合はLinkCard側のデフォルト(大型)が使われる。
-      if (link.title?.trim().toLowerCase() === "small") {
+      if (title === "small") {
         attributes.push({ type: "mdxJsxAttribute", name: "variant", value: "small" });
       }
 
