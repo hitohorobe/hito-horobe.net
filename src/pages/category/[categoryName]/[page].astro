@@ -1,23 +1,20 @@
 ---
 import BlogLayout from "../../../layouts/BlogLayout.astro";
 import Pagination from "../../../components/Pagination.astro";
-import { getArticles, getCategories } from "../../../libs/microcms";
+import { getArticles, getCategories } from "../../../libs/content";
 import type { GetStaticPathsOptions } from "astro";
-import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../../const"
+import { DOMAIN, SITE_NAME } from "../../../const"
 
 export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
-    const categoriesApiResponse = await getCategories({ limit: QUERY_MAX_ENTRY_COUNT });
-    const categories = categoriesApiResponse.contents;
-
-    const articlesApiResponse = await getArticles({ limit: QUERY_MAX_ENTRY_COUNT });
-    const articles = articlesApiResponse.contents;
+    const categories = await getCategories();
+    const articles = await getArticles();
 
     return categories.flatMap((category) => {
-        const categoryArticles = articles.filter((article) => 
-            article.category.id === category.id
+        const categoryArticles = articles.filter((article) =>
+            article.category === category
         );
         return paginate(categoryArticles, {
-            params: { categoryName: category.name },
+            params: { categoryName: category },
             pageSize: 10
         })
     });
@@ -26,16 +23,15 @@ export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
 const { page } = Astro.props
 const { categoryName } = Astro.params
 const categoryArticles = page.data
-const categoriesApiResponse = await getCategories({ limit: 100 });
-const categories = categoriesApiResponse.contents;
+const categories = await getCategories();
 
-const categoryOfThisPage = categories.find((category) => category.name === categoryName)
+const categoryOfThisPage = categories.find((category) => category === categoryName)
 
 ---
-<BlogLayout 
-  pageTitle=`${categoryOfThisPage?.name} | ${SITE_NAME}`
+<BlogLayout
+  pageTitle=`${categoryOfThisPage} | ${SITE_NAME}`
   articles={categoryArticles}
-  description=`${SITE_NAME}の${categoryOfThisPage?.name}カテゴリの記事一覧です`
+  description=`${SITE_NAME}の${categoryOfThisPage}カテゴリの記事一覧です`
   image={"https://hito-horobe.net/ogp-index.jpg"}
   url={`https://${DOMAIN}/category/${categoryName}/${page.currentPage}`}
 >

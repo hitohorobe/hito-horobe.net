@@ -1,23 +1,20 @@
 ---
 import BlogLayout from "../../../layouts/BlogLayout.astro";
 import Pagination from "../../../components/Pagination.astro";
-import { getArticles, getTags } from "../../../libs/microcms";
+import { getArticles, getTags } from "../../../libs/content";
 import type { GetStaticPathsOptions } from "astro";
-import { DOMAIN, SITE_NAME, QUERY_MAX_ENTRY_COUNT } from "../../../const"
+import { DOMAIN, SITE_NAME } from "../../../const"
 
 export async function getStaticPaths( {paginate}: GetStaticPathsOptions) {
-    const tagsApiResponse = await getTags({ limit: QUERY_MAX_ENTRY_COUNT });
-    const tags = tagsApiResponse.contents;
-
-    const articlesApiResponse = await getArticles({ limit: QUERY_MAX_ENTRY_COUNT });
-    const articles = articlesApiResponse.contents;
+    const tags = await getTags();
+    const articles = await getArticles();
 
     return tags.flatMap((tag) => {
-        const tagArticles = articles.filter((article) => 
-            article.tags.map((tag) => tag.id).includes(tag.id)
+        const tagArticles = articles.filter((article) =>
+            article.tags.includes(tag)
         );
         return paginate(tagArticles, {
-            params: { tagName: tag.name },
+            params: { tagName: tag },
             pageSize: 10
         })
     });
@@ -28,7 +25,7 @@ const { tagName } = Astro.params
 const tagArticles = page.data
 
 ---
-<BlogLayout 
+<BlogLayout
   pageTitle=`${tagName} | ${SITE_NAME}`
   articles={tagArticles}
   description=`${SITE_NAME}の${tagName}タグの記事一覧です`

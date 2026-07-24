@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { Article, Tag } from "../libs/microcms";
+import type { Article } from "../libs/content";
 import { dateTimetoLocalDateString } from "../libs/date.js";
 const { pageTitle, articles, description, image, url } = Astro.props
 ---
@@ -23,8 +23,8 @@ const { pageTitle, articles, description, image, url } = Astro.props
                       <article data-pagefind-ignore="all">
                           <a href={`/articles/${article.slug}/`}>
                             <Image
-                              src={`${article.thumbnail.url}`}
-                              alt={`img_${article.title}/`}
+                              src={article.thumbnail.src}
+                              alt={article.thumbnail.alt ?? `img_${article.title}/`}
                               width={800}
                               height={450}
                               class="m-1 aspect-[5/3] object-cover w-full"
@@ -37,14 +37,14 @@ const { pageTitle, articles, description, image, url } = Astro.props
                           <h1 class="text-xl font-semibold p-1 m-1">
                             <a href={`/articles/${article.slug}/`}>{article.title}</a>
                           </h1>
-                        <p class="p-1 m-1">{article.lead_text}</p>
+                        <p class="p-1 m-1">{article.leadText}</p>
                         <p class="category">
-                          <a href={`/category/${article.category.name}/1`}>{article.category.name}</a>
+                          <a href={`/category/${article.category}/1`}>{article.category}</a>
                         </p>
                         <ui class="tag">
                           {
-                            article.tags.map((tag: Tag) => (
-                              <li><a href={`/tag/${tag.name}/1`}>{tag.name}</a></li>
+                            article.tags.map((tag: string) => (
+                              <li><a href={`/tag/${tag}/1`}>{tag}</a></li>
                             ))
                           }
                         </ul>

@@ -1,6 +1,5 @@
 ---
 import { dateTimetoLocalDateString } from "../libs/date";
-import type { Tag } from "../libs/microcms";
 
 const { article } = Astro.props
 ---
@@ -9,12 +8,12 @@ const { article } = Astro.props
     <ul class="date">
         <li class="published-at">{dateTimetoLocalDateString(article.publishedAt)}</li>
         <li class="updated-at">{dateTimetoLocalDateString(article.updatedAt)}</li>
-        <li class="category"><a href={`/category/${article.category.name}/1`}>{article.category?.name}</a></li>
+        <li class="category"><a href={`/category/${article.category}/1`}>{article.category}</a></li>
       </ul>
       <ul class="tag">
         {
-          article.tags.map((tag: Tag) => (
-            <li><a href={`/tag/${tag.name}/1`}>{tag.name}</a></li>
+          article.tags.map((tag: string) => (
+            <li><a href={`/tag/${tag}/1`}>{tag}</a></li>
           ))
         }
         </ul>

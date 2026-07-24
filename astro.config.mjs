@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import pagefind from "astro-pagefind";
 import tailwindcss from "@tailwindcss/vite";
+import mdx from "@astrojs/mdx";
+import remarkFigureCaption from "./src/plugins/remark-figure-caption.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,11 +11,11 @@ export default defineConfig({
     format: "file",
     assets: "files",
   },
-  integrations: [pagefind()],
+  integrations: [pagefind(), mdx()],
+  markdown: {
+    remarkPlugins: [remarkFigureCaption],
+  },
   vite: {
     plugins: [tailwindcss()],
   },
-  image: {
-    domains: ["images.microcms-assets.io"]
-  }
 });
