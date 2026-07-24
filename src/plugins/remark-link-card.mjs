@@ -21,12 +21,17 @@ export default function remarkLinkCard() {
         return;
       }
 
+      const attributes = [{ type: "mdxJsxAttribute", name: "url", value: link.url }];
+      // リンクのtitle属性で "small" を指定すると小型カードになる(画像キャプションと同じ仕組み)。
+      // 未指定/それ以外の値の場合はLinkCard側のデフォルト(大型)が使われる。
+      if (link.title?.trim().toLowerCase() === "small") {
+        attributes.push({ type: "mdxJsxAttribute", name: "variant", value: "small" });
+      }
+
       parent.children[index] = {
         type: "mdxJsxFlowElement",
         name: "LinkCard",
-        attributes: [
-          { type: "mdxJsxAttribute", name: "url", value: link.url },
-        ],
+        attributes,
         children: [],
       };
     });
