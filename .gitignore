@@ -3,6 +3,9 @@ dist/
 
 # synced articles content repo (scripts/sync-content.mjs)
 content/
+
+# link preview (OGP) fetch cache (src/libs/link-preview.ts)
+.cache/
 # generated types
 .astro/
 

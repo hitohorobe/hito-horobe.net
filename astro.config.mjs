@@ -3,6 +3,7 @@ import pagefind from "astro-pagefind";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import remarkFigureCaption from "./src/plugins/remark-figure-caption.mjs";
+import remarkLinkCard from "./src/plugins/remark-link-card.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
   },
   integrations: [pagefind(), mdx()],
   markdown: {
-    remarkPlugins: [remarkFigureCaption],
+    remarkPlugins: [remarkFigureCaption, remarkLinkCard],
   },
   vite: {
     plugins: [tailwindcss()],

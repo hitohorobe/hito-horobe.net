@@ -5,6 +5,7 @@ import Navigation from "../../components/Navigation.astro";
 import Related from "../../components/Related.astro";
 import Sharebuttons from '../../components/ShareButtons.astro';
 import DateCategoryTags from "../../components/DateCategoryTags.astro";
+import LinkCard from "../../components/LinkCard.astro";
 import { getArticles, getArticleBySlug } from "../../libs/content"
 import { DOMAIN, SITE_NAME } from "../../const"
 
@@ -26,7 +27,7 @@ const relatedArticles = (await getArticles()).slice(0, 4);
 <BaseLayout
   pageTitle={`${article.title} | ${SITE_NAME}`}
   description={article.leadText}
-  image={article.thumbnail.src}
+  image={`https://${DOMAIN}${article.thumbnail.src.src}`}
   url={`https://${DOMAIN}/articles/${slug}`}
 >
 <container class="max-w-[1100px] mx-auto flex flex-wrap m-3">
@@ -56,13 +57,13 @@ const relatedArticles = (await getArticles()).slice(0, 4);
               [&_blockquote]:mx-9
               [&_blockquote]:border-blue-500 [&_blockquote]:bg-[#f5f5f5]
               [&_p]:mx-3 [&_p]:my-6 [&_p]:text-base
-              [&_a]:underline [&_a]:text-blue-600 [&_a]:break-all
+              [&_a:not(.link-card)]:underline [&_a:not(.link-card)]:text-blue-600 [&_a:not(.link-card)]:break-all
               [&_ul]:my-6
               [&_li]:list-disc
               [&_figure]:flex [&_figure]:flex-col [&_figure]:items-center [&_figure]:max-w-full
               [&_img]:max-w-full"
           >
-            <Content />
+            <Content components={{ LinkCard }} />
           </div>
           <Related articles={relatedArticles} />
           <Sharebuttons
