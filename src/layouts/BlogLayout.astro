@@ -41,7 +41,7 @@ const { pageTitle, articles, description, image, url } = Astro.props
                         <p class="category">
                           <a href={`/category/${article.category}/1`}>{article.category}</a>
                         </p>
-                        <ui class="tag">
+                        <ul class="tag">
                           {
                             article.tags.map((tag: string) => (
                               <li><a href={`/tag/${tag}/1`}>{tag}</a></li>

@@ -30,7 +30,7 @@ const relatedArticles = (await getArticles()).slice(0, 4);
   image={`https://${DOMAIN}${article.thumbnail.src.src}`}
   url={`https://${DOMAIN}/articles/${slug}`}
 >
-<container class="max-w-[1100px] mx-auto flex flex-wrap m-3">
+<div class="max-w-[1100px] mx-auto flex flex-wrap m-3">
   <div class="flex-1 mr-4 min-w-0">
   <article class="p-3" data-pagefind-body>
         <div>
@@ -78,7 +78,6 @@ const relatedArticles = (await getArticles()).slice(0, 4);
       <Navigation />
     </div>
     </div>
-  </div>
 </BaseLayout>
 
 <style>

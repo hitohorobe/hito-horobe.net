@@ -1,9 +1,9 @@
 ---
-import Search from "astro-pagefind/components/Search"
+import Search from "astro-pagefind/components/Search.astro"
 ---
 
 <div class="m-1 p-1 text-sm">
-<Search id="search" className="pagefind-ui" uiOptions={{ showImages: false}} />
+<Search instance="search" className="pagefind-ui" searchboxOptions={{ showImages: false}} />
 </div>
 
 <style>
