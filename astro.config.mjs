@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import pagefind from "astro-pagefind";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
@@ -14,7 +15,9 @@ export default defineConfig({
   },
   integrations: [pagefind(), mdx()],
   markdown: {
-    remarkPlugins: [remarkFigureCaption, remarkLinkCard],
+    processor: unified({
+      remarkPlugins: [remarkFigureCaption, remarkLinkCard],
+    }),
   },
   vite: {
     plugins: [tailwindcss()],
