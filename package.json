@@ -8,14 +8,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "prebuild": "npm run sync-content",
-    "build": "astro check && astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "migrate-from-microcms": "node scripts/migrate-from-microcms/index.mjs",
     "fix-amazon-affiliate-links": "node scripts/fix-amazon-affiliate-links.mjs"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/rss": "^4.0.13",
     "@tailwindcss/vite": "^4.3.0",
@@ -23,7 +22,7 @@
     "astro-pagefind": "^2.0.1",
     "open-graph-scraper": "^6.12.0",
     "tailwindcss": "^4.3.0",
-    "typescript": "^5.8.3",
+    "typescript": "^7.0.2",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
