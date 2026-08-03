@@ -17,7 +17,7 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/rss": "^4.0.13",
-    "@tailwindcss/vite": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.6",
     "astro-pagefind": "^2.0.1",
     "open-graph-scraper": "^6.12.0",
