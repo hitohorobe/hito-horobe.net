@@ -15,7 +15,7 @@
     "fix-amazon-affiliate-links": "node scripts/fix-amazon-affiliate-links.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^7.0.7",
+    "@astrojs/mdx": "^7.0.8",
     "@astrojs/rss": "^4.0.13",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.4",
