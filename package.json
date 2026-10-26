@@ -31,6 +31,6 @@
     "@types/turndown": "^5.0.5",
     "microcms-js-sdk": "^3.5.0",
     "turndown": "^7.2.0",
-    "yaml": "^2.7.0"
+    "yaml": "^2.9.1"
   }
 }
