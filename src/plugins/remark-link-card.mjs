@@ -21,6 +21,11 @@ export default function remarkLinkCard() {
         return;
       }
 
+      // ページ内リンク(目次など `[見出し](#id)`)はカード化しない。
+      if (link.url.startsWith("#")) {
+        return;
+      }
+
       const title = link.title?.trim().toLowerCase();
       // リンクのtitle属性で "plain" を指定すると、LinkCard化せず通常のテキストリンクのままにする。
       if (title === "plain") {
